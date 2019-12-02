@@ -66,7 +66,7 @@
     "type": "git",
     "url": "git+https://github.com/AlexanderTserkovniy/riot-router.git"
   },
-  "author": "Gabriel Moreira",
+  "author": "Oleksandr Tserkovnyi",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/AlexanderTserkovniy/riot-router/issues"
