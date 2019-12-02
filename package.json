@@ -64,14 +64,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabrielmoreira/riot-router.git"
+    "url": "git+https://github.com/AlexanderTserkovniy/riot-router.git"
   },
   "author": "Gabriel Moreira",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gabrielmoreira/riot-router/issues"
+    "url": "https://github.com/AlexanderTserkovniy/riot-router/issues"
   },
-  "homepage": "https://github.com/gabrielmoreira/riot-router#readme",
+  "homepage": "https://github.com/AlexanderTserkovniy/riot-router#readme",
   "files": [
     "dist",
     "src",
