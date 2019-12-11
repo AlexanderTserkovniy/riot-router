@@ -391,9 +391,8 @@ function registerTag(router) {
       if (typeof tag === 'function') {
         [tag, api, options] = this.normalizeTag(tag, api, options);
       }
-      console.log('tag, api, options', tag, api, options);
       if (this.canUpdate(tag, api, options)) {
-        console.log('UPDATE UPDATE!!!');
+        console.debug(`Tag '${tag}' will be updated, instead of re-rendered.`);
         this.instance.update({ opts: api });
       } else {
         this.unmountTag();
