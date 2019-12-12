@@ -393,7 +393,8 @@ function registerTag(router) {
       }
       if (this.canUpdate(tag, api, options)) {
         console.debug(`Tag '${tag}' will be updated, instead of re-rendered.`);
-        this.instance.update({ opts: api });
+        // TODO This is incorrect, needs to be fixed pay attention to transfer from one virtual sport to another
+        this.instance.update(extend({}, api, { opts: api }));
       } else {
         this.unmountTag();
         if (tag) {
