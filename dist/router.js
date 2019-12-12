@@ -265,7 +265,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      || !go(getPathFromBase(el.href), el.title || doc.title) // route not found
 	    )) { return }
 	
-	  e.preventDefault();
+	  if (!Object.keys(el).includes('react')) {
+	    e.preventDefault();
+	  }
 	}
 	
 	/**
@@ -937,6 +939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _this.name = options.name;
 	      _this.updatable = options.updatable;
 	      _this.pathParameterNames = [];
+	      _this.reRenderOnPropChange = options.reRenderOnPropChange;
 	      var path = _this.getPath().replace(/^\//, "");
 	      _this.pattern = "^/?" + path.replace(/:([^/]+)/g, function (ignored, group) {
 	        this.pathParameterNames.push(group);
@@ -1228,6 +1231,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	
 	      this.canUpdate = function (tag, api, options) {
+	        var _this6 = this;
+	
+	        if (options.reRenderOnPropChange && this.instanceApi && options.reRenderOnPropChange.some(function (opt) {
+	          return _this6.instanceApi[opt] !== api[opt];
+	        })) {
+	          return false; // When a prop is not equal to previous, and the flag reRenderOnPropChange is set, then we need to full re-render
+	        }
 	        if (options.updatable === false) return false;
 	        if (!router.config.updatable && !opts.updatable && !options.updatable || !this.instance || !this.instance.isMounted || this.instanceTag !== tag) return false;
 	        return true;
@@ -1251,7 +1261,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	              mount = {
 	                tag: matcher.tag,
 	                api: api,
-	                updatable: matcher.route.updatable
+	                updatable: matcher.route.updatable,
+	                reRenderOnPropChange: matcher.route.reRenderOnPropChange
 	              };
 	            }
 	          }
