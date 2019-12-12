@@ -1207,10 +1207,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	          api = _normalizeTag2[1];
 	          options = _normalizeTag2[2];
 	        }
-	        console.log('tag, api, options', tag, api, options);
 	        if (this.canUpdate(tag, api, options)) {
-	          console.log('UPDATE UPDATE!!!');
-	          this.instance.update({ opts: api });
+	          console.debug('Tag \'' + tag + '\' will be updated, instead of re-rendered.');
+	          // TODO This is incorrect, needs to be fixed pay attention to transfer from one virtual sport to another
+	          this.instance.update(extend({}, api, { opts: api }));
 	        } else {
 	          this.unmountTag();
 	          if (tag) {
