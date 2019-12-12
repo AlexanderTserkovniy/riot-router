@@ -185,6 +185,7 @@ class Route extends Handler {
     this.name = options.name;
     this.updatable = options.updatable;
     this.pathParameterNames = [];
+    this.reRenderOnPropChange = options.reRenderOnPropChange;
     var path = this.getPath().replace(/^\//, "");
     this.pattern = "^/?" + path.replace(/:([^/]+)/g, function (ignored, group) {
       this.pathParameterNames.push(group);
@@ -412,6 +413,9 @@ function registerTag(router) {
     }
 
     this.canUpdate = function (tag, api, options) {
+      if (options.reRenderOnPropChange && this.instanceApi && options.reRenderOnPropChange.some(opt => this.instanceApi[opt] !== api[opt])) {
+        return false; // When a prop is not equal to previous, and the flag reRenderOnPropChange is set, then we need to full re-render
+      }
       if (options.updatable === false) return false;
       if ((!router.config.updatable && !opts.updatable && !options.updatable) ||
         !this.instance ||
@@ -439,7 +443,8 @@ function registerTag(router) {
             mount = {
               tag: matcher.tag,
               api: api,
-              updatable: matcher.route.updatable
+              updatable: matcher.route.updatable,
+              reRenderOnPropChange: matcher.route.reRenderOnPropChange,
             };
           }
         }
