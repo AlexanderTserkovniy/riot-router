@@ -265,7 +265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      || !go(getPathFromBase(el.href), el.title || doc.title) // route not found
 	    )) { return }
 	
-	  if (!Object.keys(el).includes('react')) {
+	  if (!Object.keys(el).find(function (key) { return key.includes('react') })) {
 	    e.preventDefault();
 	  }
 	}
